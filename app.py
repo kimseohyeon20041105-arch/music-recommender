@@ -164,9 +164,23 @@ if "recs" in st.session_state:
         st.write(f"- **{r['title']}** — *{r['artist']}* ")
         
     st.markdown(
-        "<p style='font-size:15px; text-align:center;'>✦⋆˙✧₊˚༉‧₊˚⋆⁺₊⁺⋆˚₊‧༉˚₊✧˙⋆✦ ✦˙✧₊˚༉‧₊˚⋆⁺₊⁺⋆˚₊‧༉˚₊✧˙⋆✦</p>",
-        unsafe_allow_html=True
-    )
+    """
+    <div style="
+        display: flex;
+        align-items: center;
+        text-align: center;
+        margin: 20px 0;
+    ">
+        <div style="flex-grow: 1; height: 1px; background: #ccc;"></div>
+        <div style="padding: 0 10px; font-size: 14px; color: #777;">
+            ✦⋆˙✧₊˚༉‧₊˚⋆⁺₊⋆✧˙⋆✦
+        </div>
+        <div style="flex-grow: 1; height: 1px; background: #ccc;"></div>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
 
     # 자동 추천 로그 저장
     save_to_sheet(
@@ -194,4 +208,4 @@ if "recs" in st.session_state:
             rating,
             mood_after
         )
-        st.success("피드백이 저장되었습니다! 감사합니다! 💜")
+        st.success("⋆₊˚ෆ 피드백이 반영되었어요. 더 나은 음악을 추천할게요 ෆ˚₊⋆")
