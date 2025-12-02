@@ -155,7 +155,7 @@ if "recs" in st.session_state:
     st.subheader("🎶 추천 결과")
 
     for r in st.session_state.recs:
-        st.write(f"- **{r['title']}** — *{r['artist']}*  
+        st.write(f"- **{r['title']}** — *{r['artist']}* ")
 
     # 자동 추천 로그 저장
     save_to_sheet(
