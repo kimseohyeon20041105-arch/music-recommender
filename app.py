@@ -163,7 +163,7 @@ st.markdown(
 
 <div class="cute-box colored-box">
     <div class="title-text">✷ 인기도 (pop_level)</div>
-    0 : <br>
+    0 : 60-70<br>
     1 : 71–80<br>
     2 : 81–99
 </div>
