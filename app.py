@@ -164,7 +164,8 @@ if "recs" in st.session_state:
         st.write(f"- **{r['title']}** — *{r['artist']}* ")
         
     st.markdown(
-        "<p style='font-size:15px; text-align:center;'>✦⋆˙✧₊˚༉‧₊˚⋆⁺₊⁺⋆˚₊‧༉˚₊✧˙⋆✦</p>",
+        "<p style='font-size:15px; text-align:center;'>✦⋆˙✧₊˚༉‧₊˚⋆⁺₊⁺⋆˚₊‧༉˚₊✧˙⋆✦ ✦˙✧₊˚༉‧₊˚⋆⁺₊⁺⋆˚₊‧༉˚₊✧˙⋆✦
+</p>",
         unsafe_allow_html=True
     )
 
