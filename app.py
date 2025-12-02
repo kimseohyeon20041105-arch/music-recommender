@@ -205,10 +205,11 @@ if "recs" in st.session_state:
     st.subheader("✧♬˚₊· 추천 결과")
 
     for r in st.session_state.recs:
-    st.markdown(
-        f"- **[{r['title']}]({r['spotify_url']})** — *{r['artist']}* ",
-        unsafe_allow_html=True
-    )
+        st.markdown(
+            f"- **[{r['title']}]({r['spotify_url']})** — *{r['artist']}* ",
+            unsafe_allow_html=True
+        )
+
 
     # 구분선
     st.markdown(
