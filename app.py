@@ -18,12 +18,12 @@ def connect_to_gsheet():
 
     client = gspread.authorize(creds)
 
-    # 시트 ID로 연결 (가장 안정적)
-    sheet = client.open_by_key("10uxFwwOHTrZ5Hw1aUw_5M4JlKY-YZz8sRQ_X3NGTGeA").sheet1  
+    # ✔ 시트 ID 방식으로 연결 (이 방식이 가장 안정적)
+    sheet = client.open_by_key("10uxFwwOHTrZ5Hw1aUw_5M4JlKY-YZz8sRQ_X3NGTGeA").sheet1
     return sheet
 
 
-def save_log_to_sheet(emo1, emo2, pop_level, recs):
+def save_log_to_sheet(emo1, emo2, pop_level, recs, rating=None, mood_after=None):
     sheet = connect_to_gsheet()
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
@@ -35,7 +35,9 @@ def save_log_to_sheet(emo1, emo2, pop_level, recs):
             pop_level,
             r["title"],
             r["artist"],
-            r["similarity"]
+            r["similarity"],
+            rating if rating is not None else "",
+            mood_after if mood_after is not None else ""
         ])
 
 
@@ -102,7 +104,7 @@ st.markdown(
 st.markdown(
     """
 <div class="cute-box">
-    지금 내 분위기에 딱 맞는 음악을 찾아보자!    
+    지금 내 분위기에 딱 맞는 음악을 찾아보자! 🌈    
 </div>
 """,
     unsafe_allow_html=True
@@ -111,10 +113,11 @@ st.markdown(
 # 선택 입력
 emo1 = st.selectbox("첫 번째 감정 선택", [""] + emotions)
 emo2 = st.selectbox("두 번째 감정 선택(없어도 됨)", [""] + emotions)
-
 pop_level = st.selectbox("인기도 레벨(pop_level)", [0, 1, 2])
 
+# ──────────────────────────────
 # 추천 버튼
+# ──────────────────────────────
 if st.button("추천 받기"):
     if emo1 == "":
         st.warning("⚠ 첫 번째 감정을 반드시 선택해주세요.")
@@ -126,46 +129,28 @@ if st.button("추천 받기"):
         # 추천 실행
         recs = recommend_knn(user_emotions, pop_level)
 
-        # 🔥 구글 시트 저장
-        save_log_to_sheet(emo1, emo2, pop_level, recs)
-        
+        # 추천 결과 출력
         st.subheader("🎶 추천 결과")
         for r in recs:
             st.write(f"- **{r['title']}** — *{r['artist']}*  (❗유사도 {r['similarity']})")
 
+        # 🔥 추천 결과 Google Sheets 자동 저장 (피드백 없이도 기록됨)
+        save_log_to_sheet(emo1, emo2, pop_level, recs)
 
-# ──────────────────────────────
-# 피드백 입력
-# ──────────────────────────────
+        # ──────────────────────────────
+        # ⭐ + 🙂 피드백 UI (추천 후에만 표시!)
+        # ──────────────────────────────
+        st.subheader("📝 추천에 대한 피드백을 남겨주세요!")
 
-st.subheader("📝 추천에 대한 피드백을 남겨주세요!")
+        rating = st.slider("이번 추천 만족도는? (1 = 별로, 5 = 최고)", 1, 5, 3)
 
-# ⭐ 별점 (1~5)
-rating = st.slider("이번 추천의 만족도는 어떠셨나요? (1 = 별로, 5 = 최고)", 1, 5, 3)
+        mood_after = st.radio(
+            "추천을 들은 후 기분이 어떻게 변했나요?",
+            ["더 좋아졌어요 🙂", "그대로예요 😐", "별로였어요 🙁"]
+        )
 
-# 🙂 감정 변화 체크
-mood_after = st.radio(
-    "추천을 들은 후 기분이 어떻게 변했나요?",
-    ["더 좋아졌어요 🙂", "그대로예요 😐", "별로였어요 🙁"]
-)
+        if st.button("피드백 제출"):
+            save_log_to_sheet(emo1, emo2, pop_level, recs, rating, mood_after)
+            st.success("피드백이 저장되었습니다! 💜 고마워요!")
 
-# 제출 버튼
-if st.button("피드백 제출"):
-    sheet = connect_to_gsheet()
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
-    for r in recs:
-        sheet.append_row([
-            timestamp,
-            emo1,
-            emo2 if emo2 else "",
-            pop_level,
-            r["title"],
-            r["artist"],
-            r["similarity"],
-            rating,       # ⭐ 별점 저장
-            mood_after    # 🙂 감정 변화 저장
-        ])
-
-    st.success("피드백이 저장되었습니다! 💜 고마워요!")
 
