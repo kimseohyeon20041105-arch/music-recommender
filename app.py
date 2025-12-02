@@ -76,7 +76,7 @@ st.markdown(
     """
 <div class="cute-box">
     <div class="title-text">🎵 감정 기반 음악 추천 시스템</div>
-    지금 감정에 따라 지금 딱 맞는 음악을 추천받아보세요! 💜<br>
+    지금 감정에 따라 지금 딱 맞는 음악을 추천받아보세요! <br>
     선택한 감정과 인기도(pop_level)를 기반으로 영어 음악을 추천해주는 시스템입니다. 🎧  
 </div>
 
@@ -97,7 +97,7 @@ st.markdown(
 
 <div class="cute-box colored-box">
     <div class="title-text">🔥 인기도 (pop_level)</div>
-    0 : 60–70<br>
+    0 : <br>
     1 : 71–80<br>
     2 : 81–99
 </div>
@@ -178,4 +178,4 @@ if "recs" in st.session_state:
             rating,
             mood_after
         )
-        st.success("💜 피드백이 저장되었어요! 고마워요!")
+        st.success("피드백이 저장되었습니다! 감사합니다!")
