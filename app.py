@@ -8,8 +8,11 @@ import uuid
 # ──────────────────────────────
 # 사용자 ID 생성
 # ──────────────────────────────
+import random
+import string
+
 if "user_id" not in st.session_state:
-    st.session_state.user_id = str(uuid.uuid4())
+    st.session_state.user_id = ''.join(random.choices(string.ascii_letters + string.digits, k=6))
 
 # ──────────────────────────────
 # Google Sheets 저장 함수
