@@ -17,7 +17,9 @@ def connect_to_gsheet():
     )
 
     client = gspread.authorize(creds)
-    sheet = client.open("music_recommend_log").sheet1  # 구글 시트 이름
+
+    # 시트 ID로 연결 (가장 안정적인 방식)
+    sheet = client.open_by_key("10uxFwwOHTrZ5Hw1aUw_5M4JlKY-YZz8sRQ_X3NGTGeA").sheet1
     return sheet
 
 
@@ -35,7 +37,6 @@ def save_log_to_sheet(emo1, emo2, pop_level, recs):
             r["artist"],
             r["similarity"]
         ])
-
 
 # ──────────────────────────────
 # Streamlit UI
@@ -66,10 +67,11 @@ if st.button("추천 받기"):
 
         recs = recommend_knn(user_emotions, pop_level)
 
-        # 🔥 로그 저장
+        # 🔥 구글 시트 저장
         save_log_to_sheet(emo1, emo2, pop_level, recs)
         st.success("✔ 추천 결과가 Google Sheets에 저장되었습니다!")
 
         st.subheader("🎶 추천 결과")
         for r in recs:
             st.write(f"- **{r['title']}** — *{r['artist']}*  (❗유사도 {r['similarity']})")
+
