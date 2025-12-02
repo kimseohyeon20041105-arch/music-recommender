@@ -27,9 +27,20 @@ emotions = list(emotion_genre_map.keys())
 # -----------------------------
 # CSV 읽기
 # -----------------------------
+# CSV 컬럼 구조 가정:
+# 0: genre
+# 1: title
+# 2: artist
+# 3: (unused)
+# 4: popularity
+# 5: spotify_url ★ 반드시 존재해야 함!
 music_df = pd.read_csv("music.csv", header=None)
-music_df = music_df[[0,1,2,4]]
-music_df.columns = ["genre","title","artist","popularity"]
+
+# spotify_url 포함해서 불러오기
+music_df = music_df[[0,1,2,4,5]]
+music_df.columns = ["genre","title","artist","popularity","spotify_url"]
+
+# 숫자로 변환
 music_df["popularity"] = pd.to_numeric(music_df["popularity"], errors='coerce')
 music_df = music_df.dropna(subset=["popularity"]).copy()
 
@@ -81,23 +92,16 @@ knn_model.fit(X_scaled)
 
 
 # -----------------------------
-# 추천 함수
+# 추천 함수 (Spotify URL 포함)
 # -----------------------------
 def recommend_knn(user_emotions, user_pop_level, top_k=3, candidate_pool=10):
-    """
-    user_emotions: 사용자가 선택한 감정 리스트
-    user_pop_level: 사용자가 선택한 인기도 레벨 (0,1,2)
-    top_k: 추천할 곡 개수
-    candidate_pool: KNN 후보를 뽑을 개수 (top_k보다 크도록)
-    """
+
     u_vec = user_vector(user_emotions, user_pop_level)
     u_scaled = scaler.transform([u_vec])
 
-    # 후보를 candidate_pool개 뽑기
     dist, idx = knn_model.kneighbors(u_scaled, n_neighbors=candidate_pool)
     top_candidates = music_df.iloc[idx[0]]
 
-    # 후보 중에서 top_k개를 랜덤으로 선택
     selected = top_candidates.sample(n=top_k)
 
     recommendations = []
@@ -107,7 +111,8 @@ def recommend_knn(user_emotions, user_pop_level, top_k=3, candidate_pool=10):
             "genre": row['genre'],
             "title": row['title'],
             "artist": row['artist'],
-            "similarity": round(float(sim), 4)
+            "similarity": round(float(sim), 4),
+            "spotify_url": row['spotify_url']   # ★ 추가됨!
         })
 
     return recommendations
