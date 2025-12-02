@@ -72,7 +72,9 @@ st.markdown("""
             font-weight: 700;
             #background: linear-gradient(90deg, #7F7FD5, #86A8E7, #91EAE4); 
             #background: linear-gradient(90deg, #AFAFAF, #D5D5D5, #F2F2F2);
-            background: linear-gradient(90deg, #7ED957, #A3E77C, #C9F4A1);
+            #background: linear-gradient(90deg, #7ED957, #A3E77C, #C9F4A1);
+            background: linear-gradient(90deg, #6EE888, #9EFFA4, #C9FFC8);
+
 
             -webkit-background-clip: text;
             color: transparent;
@@ -160,6 +162,10 @@ if "recs" in st.session_state:
 
     for r in st.session_state.recs:
         st.write(f"- **{r['title']}** — *{r['artist']}* ")
+        st.markdown(
+        "<p style='font-size:14px; text-align:center; color:#777;'>✦⋆˙✧₊˚༉‧₊˚⋆⁺₊⁺⋆˚₊‧༉˚₊✧˙⋆✦</p>",
+        unsafe_allow_html=True
+    )
 
     # 자동 추천 로그 저장
     save_to_sheet(
