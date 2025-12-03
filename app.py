@@ -58,96 +58,100 @@ st.set_page_config(page_title="감정 기반 음악 추천", page_icon="🎵")
 # 모바일 반응형 CSS 포함
 st.markdown("""
 <style>
-    /* 전체 레이아웃 여백 조정 */
-    .main, .block-container {
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
-    }
+/* 전체 레이아웃 여백 조정 */
+.main, .block-container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+}
 
-    /* 글자가 박스 밖으로 튀어나가는 현상 방지 */
-    * {
-        word-wrap: break-word !important;
-        overflow-wrap: break-word !important;
-        white-space: normal !important;
-    }
+/* 글자가 박스 밖으로 튀어나가는 현상 방지 */
+* {
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    white-space: normal !important;
+}
 
-    /* 다크모드 상관없이 색 고정 */
-    body, .block-container {
-        background-color: #ffffff !important; /* 전체 배경색 */
-        color: #000000 !important;           /* 기본 글자색 */
-    }
+/* 배경색 / 글자색 고정 */
+body, .block-container {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+}
 
-    a {
-        color: #0066CC !important;           /* 링크 색 */
-    }
+a {
+    color: #0066CC !important;
+}
+
+/* 박스 스타일 */
+.cute-box {
+    padding: 15px 18px;
+    border-radius: 15px;
+    font-size: 17px;
+    line-height: 1.5;
+    background-color: #D9F1FF !important;
+    color: #000000 !important;
+}
+
+.colored-box {
+    background-color: #D9F1FF !important;
+    color: #000000 !important;
+}
+
+/* 텍스트 스타일 */
+.title-text {
+    font-size: 20px;
+    font-weight: 600;
+    color: #000000 !important;
+}
+
+/* 제목은 박스 밖에서 독립 */
+.title-main {
+    font-size: 35px;
+    font-weight: 700;
+    background: linear-gradient(90deg, #6EE888, #9EFFA4, #C9FFC8);
+    -webkit-background-clip: text;
+    color: transparent;
+    text-shadow: 0px 2px 12px rgba(0,0,0,0.15);
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* 구분선 텍스트 */
+.divider-text {
+    font-size: 14px;
+    color: #777 !important;
+}
+
+/* 모바일 화면 대응 */
+@media screen and (max-width: 600px) {
 
     .cute-box {
-        padding: 15px 18px;
-        border-radius: 15px;
-        font-size: 17px;
-        line-height: 1.5;
-        background-color: #D9F1FF !important; /* 고정 배경색 */
-        color: #000000 !important;           /* 고정 글자색 */
-    }
-
-    .colored-box {
-        background-color: #D9F1FF !important;
-        color: #000000 !important;
+        padding: 12px 14px !important;
+        font-size: 14px !important;
+        line-height: 1.4 !important;
     }
 
     .title-text {
-        font-size: 20px;
-        font-weight: 600;
-        color: #000000 !important;
+        font-size: 15px !important;
     }
 
     .title-main {
-        font-size: 35px;
-        font-weight: 700;
-        background: linear-gradient(90deg, #6EE888, #9EFFA4, #C9FFC8);
-        -webkit-background-clip: text;
-        color: transparent;
-        text-shadow: 0px 2px 12px rgba(0,0,0,0.15);
-        text-align: center;
+        font-size: 22px !important;
+        line-height: 1.2 !important;
+        padding: 0 6px !important;
     }
 
-    /* 구분선 텍스트 */
     .divider-text {
-        font-size: 14px;
-        color: #777 !important;
+        font-size: 11px !important;
     }
 
-    /* 📱 모바일 화면 (600px 이하) 대응 */
-    @media screen and (max-width: 600px) {
-
-        .cute-box {
-            padding: 12px 14px !important;
-            font-size: 14px !important;
-            line-height: 1.4 !important;
-        }
-
-        .title-text {
-            font-size: 15px !important;
-        }
-
-        .title-main {
-            font-size: 22px !important;
-            line-height: 1.2 !important;
-            padding: 0 6px !important;
-        }
-
-        .divider-text {
-            font-size: 11px !important;
-        }
-
-        .stSelectbox label, .stRadio label {
-            font-size: 14px !important;
-        }
-
-        textarea, input {
-            font-size: 14px !important;
-        }
+    .stSelectbox label, .stRadio label {
+        font-size: 14px !important;
     }
+
+    textarea, input {
+        font-size: 14px !important;
+    }
+}
 </style>
 """, unsafe_allow_html=True)
 
