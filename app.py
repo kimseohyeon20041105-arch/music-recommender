@@ -137,12 +137,32 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-st.markdown("""
-<style>
-#MainMenu {visibility: hidden;}
-footer {visibility: hidden;}
-</style>
-""", unsaf호<br>
+
+# 소개 박스
+st.markdown(
+    """
+<div class="cute-box">
+    <div class="title-main"> ✧ ♪˚₊· 감정 기반 음악 추천 시스템 ·₊˚♪ ✧</div><br>
+    지금 감정에 따라 지금 딱 맞는 음악을 추천받아보세요! <br>
+    선택한 감정과 인기도(pop_level)를 기반으로 영어 음악을 추천해주는 시스템입니다. 
+</div>
+<br>
+""",
+    unsafe_allow_html=True
+)
+
+# 감정 안내 박스
+st.markdown(
+    """
+<div class="cute-box colored-box">
+    <div class="title-text">✔ 선택 가능한 감정</div>
+    happy · sad · relaxed · angry · focus · confident
+</div>
+
+<br>
+
+<div class="cute-box colored-box">
+    <div class="title-text">✷ 인기도 (pop_level)</div>
     0 : 60-70<br>
     1 : 71–80<br>
     2 : 81–99
