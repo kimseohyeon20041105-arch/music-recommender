@@ -70,7 +70,7 @@ st.markdown("""
 
         /* --- 상단 패딩 제거 (가장 중요) --- */
         .block-container {
-            padding-top: 0rem !important;
+            padding-top: 10rem !important;
             padding-bottom: 1rem !important;
         }
 
