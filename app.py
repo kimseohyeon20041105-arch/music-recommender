@@ -143,6 +143,7 @@ st.markdown("""
 footer {visibility: hidden;}
 </style>
 """, unsaf호<br>
+    0 : 60-70<br>
     1 : 71–80<br>
     2 : 81–99
 </div>
