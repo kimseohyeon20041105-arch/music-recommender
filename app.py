@@ -13,7 +13,9 @@ import string
 # ──────────────────────────────
 
 if "user_id" not in st.session_state:
-st.session_state.user_id = ''.join(random.choices(string.ascii_letters + string.digits, k=6))
+st.session_state.user_id = ''.join(
+random.choices(string.ascii_letters + string.digits, k=6)
+)
 
 # ──────────────────────────────
 
@@ -30,7 +32,9 @@ creds = ServiceAccountCredentials.from_json_keyfile_dict(
 st.secrets["gcp_service_account"], scope
 )
 client = gspread.authorize(creds)
-sheet = client.open_by_key("10uxFwwOHTrZ5Hw1aUw_5M4JlKY-YZz8sRQ_X3NGTGeA").sheet1
+sheet = client.open_by_key(
+"10uxFwwOHTrZ5Hw1aUw_5M4JlKY-YZz8sRQ_X3NGTGeA"
+).sheet1
 return sheet
 
 def save_to_sheet(recs, emo1, emo2, pop_level, rating=None, mood_after=None, comment=""):
@@ -133,7 +137,10 @@ result_container = st.container()
 with result_container:
     st.subheader("✧♬˚₊· 추천 결과")
     for r in st.session_state.recs:
-        st.markdown(f"- **[{r['title']}]({r['spotify_url']})** — *{r['artist']}*", unsafe_allow_html=True)
+        st.markdown(
+            f"- **[{r['title']}]({r['spotify_url']})** — *{r['artist']}*",
+            unsafe_allow_html=True
+        )
 
     # 구분선
     st.markdown("""
@@ -156,7 +163,10 @@ with result_container:
     st.markdown("<p style='font-size:20px; font-weight:600;'>✎ 추천 피드백을 남겨주세요!</p>", unsafe_allow_html=True)
     rating = st.slider("추천 만족도 (1~5)", 1, 5, 3)
     mood_after = st.radio("추천 후 기분 변화는?", ["더 좋아졌어요 🙂", "그대로예요 😐", "별로였어요 🙁"])
-    comment = st.text_area("문의사항이나 의견을 남겨주세요 (선택사항)", placeholder="ex. 오늘 감정이랑 너무 잘 맞았어요!")
+    comment = st.text_area(
+        "문의사항이나 의견을 남겨주세요 (선택사항)",
+        placeholder="ex. 오늘 감정이랑 너무 잘 맞았어요!"
+    )
 
     if st.button("피드백 제출"):
         save_to_sheet(
