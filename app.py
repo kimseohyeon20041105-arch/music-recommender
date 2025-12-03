@@ -210,6 +210,12 @@ if st.button("추천 받기"):
         st.session_state.pop_level = pop_level
 
         st.success("추천이 생성되었어요!")
+         
+        # 🔹 여기서 자동 스크롤 추가
+        st.markdown(
+            "<script>window.scrollTo(0,document.body.scrollHeight);</script>",
+            unsafe_allow_html=True
+        )
 
 # 추천 결과 + 피드백
 if "recs" in st.session_state:
