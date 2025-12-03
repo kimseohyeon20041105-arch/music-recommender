@@ -66,9 +66,6 @@ st.markdown("""
         .block-container {
             padding-top: 5rem !important;
             padding-bottom: 1rem !important;
-
-            background-color: #ffffff !important;
-            
         }
 
         /* 전체 레이아웃 여백 조정 */
