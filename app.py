@@ -82,7 +82,6 @@ st.markdown("""
             word-wrap: break-word !important;
             overflow-wrap: break-word !important;
             white-space: normal !important;
-            color: #000000 !important;  /* 전체 텍스트 검정색 고정 */
         }
 
         .cute-box {
